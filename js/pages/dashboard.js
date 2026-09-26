@@ -1,7 +1,20 @@
 const kpi = (l, v, c) => `<div class="card kpi"><span>${l}</span><b ${c ? `style="color:${c}"` : ''}>${v}</b></div>`;
 
-async function loadData() {
-  [S.subjects, S.tasks, S.logs] = await Promise.all([repos.subjects.all(), repos.tasks.all(), repos.logs.all()]);
+async function loadData(userId) {
+  const [allSubjects, allTasks, allLogs] = await Promise.all([repos.subjects.all(), repos.tasks.all(), repos.logs.all()]);
+  S.subjects = allSubjects.filter(s => s.userId === userId);
+  const ids = new Set(S.subjects.map(s => s.id));
+  S.tasks = allTasks.filter(t => ids.has(t.subjectId));
+  S.logs = allLogs.filter(l => ids.has(l.subjectId));
+}
+
+function renderEmpty() {
+  $('#main').innerHTML = `
+    <div class="page-head"><div><h1>Visão geral</h1><p>Você ainda não tem nenhuma disciplina.</p></div></div>
+    <div class="card empty">
+      Crie sua primeira disciplina para começar a acompanhar seus estudos.
+      <div class="mt"><a class="btn" href="add-subject.html">+ Nova matéria</a></div>
+    </div>`;
 }
 
 function renderDashboard() {
@@ -10,7 +23,7 @@ function renderDashboard() {
   const leg = `<div class="leg">${subs.map(s => `<span><i class="dot" style="--c:${s.color}"></i>${esc(s.name)}</span>`).join('')}</div>`;
 
   $('#main').innerHTML = `
-    <div class="page-head"><div><h1>Visão geral</h1><p>Evolução real, calculada a partir das suas tarefas e horas.</p></div></div>
+    <div class="page-head"><div><h1>Visão geral</h1><p>Evolução real, calculada a partir das suas tarefas e horas.</p></div><a class="btn ghost" href="add-subject.html">+ Nova matéria</a></div>
     <div class="grid kpis">${kpi('Horas totais', hrs(Stats.total()))}${kpi('Últimos 7 dias', hrs(wk))}${kpi('Tarefas concluídas', done + '/' + T.length)}${kpi('Atrasadas', late, late ? 'var(--bad)' : '')}</div>
     <div class="grid two mt">
       <div class="card"><h3>Evolução acumulada · 14 dias</h3>${lineChart(subs)}${leg}</div>
@@ -31,10 +44,10 @@ function renderDashboard() {
 
 (async () => {
   initTheme();
-  await ensureSubjects();
-  await seedSampleData();
-  await loadData();
-  renderDashboard();
-  initNav();
+  const user = await requireAuth();
+  if (!user) return;
+  await initNav();
+  await loadData(user.id);
+  S.subjects.length ? renderDashboard() : renderEmpty();
   initReveal();
 })();

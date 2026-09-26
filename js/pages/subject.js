@@ -1,9 +1,12 @@
 let TAB = 'tasks', FILTER = 'all';
-const currentSubjectId = () => qs('s') || SUBJECTS[0].id;
 const kpi = (l, v) => `<div class="card kpi"><span>${l}</span><b>${v}</b></div>`;
 
-async function loadData() {
-  [S.subjects, S.tasks, S.logs] = await Promise.all([repos.subjects.all(), repos.tasks.all(), repos.logs.all()]);
+async function loadData(userId) {
+  const [allSubjects, allTasks, allLogs] = await Promise.all([repos.subjects.all(), repos.tasks.all(), repos.logs.all()]);
+  S.subjects = allSubjects.filter(s => s.userId === userId);
+  const ids = new Set(S.subjects.map(s => s.id));
+  S.tasks = allTasks.filter(t => ids.has(t.subjectId));
+  S.logs = allLogs.filter(l => ids.has(l.subjectId));
 }
 
 function renderTasks(s) {
@@ -28,11 +31,15 @@ function renderLogs(s) {
 }
 
 function render() {
-  const s = subjectById(currentSubjectId()) || SUBJECTS[0];
+  const s = subjectById(qs('s'));
+  if (!s) { $('#main').innerHTML = `<div class="empty">Disciplina não encontrada. <a href="dashboard.html">Voltar ao painel</a></div>`; return; }
   const pend = Stats.tasks(s.id).filter(t => !t.done).length;
   $('#main').innerHTML = `
     <a class="back-link" href="dashboard.html">‹ Painel</a>
-    <div class="page-head"><div><h1><span class="dot big" style="--c:${s.color}"></span>${esc(s.name)}</h1><p>${esc(s.blurb)}</p></div></div>
+    <div class="page-head">
+      <div><h1><span class="dot big" style="--c:${s.color}"></span>${esc(s.name)}</h1><p>${esc(s.blurb || '')}</p></div>
+      <a class="btn ghost" href="edit-subject.html?s=${s.id}">Editar</a>
+    </div>
     <div class="grid kpis">${kpi('Horas estudadas', hrs(Stats.total(s.id)))}${kpi('Progresso', Stats.pct(s.id) + '%')}${kpi('Tarefas pendentes', pend)}</div>
     <div class="card mt"><h3>Horas por dia · 14 dias</h3>${barChart([s], 14)}</div>
     <div class="tabs mt">
@@ -42,23 +49,23 @@ function render() {
     ${TAB === 'tasks' ? renderTasks(s) : renderLogs(s)}`;
   $('#main').classList.add('anim');
 }
-async function refresh() { await loadData(); render(); }
+async function refresh(userId) { await loadData(userId); render(); }
 
 document.addEventListener('click', async e => {
   const el = e.target.closest('[data-act]'); if (!el) return;
   const act = el.dataset.act;
   if (act === 'tab') { TAB = el.dataset.v; render(); }
   else if (act === 'filter') { FILTER = el.dataset.v; render(); }
-  else if (act === 'toggle') { const t = S.tasks.find(x => x.id === el.dataset.id); await Services.tasks.toggle(t.id, !t.done); await refresh(); }
-  else if (act === 'rmTask') { await Services.tasks.remove(el.dataset.id); await refresh(); }
-  else if (act === 'rmLog') { await Services.logs.remove(el.dataset.id); await refresh(); }
+  else if (act === 'toggle') { const t = S.tasks.find(x => x.id === el.dataset.id); await Services.tasks.toggle(t.id, !t.done); await refresh(S.user.id); }
+  else if (act === 'rmTask') { await Services.tasks.remove(el.dataset.id); await refresh(S.user.id); }
+  else if (act === 'rmLog') { await Services.logs.remove(el.dataset.id); await refresh(S.user.id); }
 });
 
 (async () => {
   initTheme();
-  await ensureSubjects();
-  await seedSampleData();
-  await refresh();
-  initNav();
+  const user = await requireAuth();
+  if (!user) return;
+  await initNav();
+  await refresh(user.id);
   initReveal();
 })();

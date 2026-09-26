@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Painel — Evolv</title>
+<title>Entrar — Evolv</title>
 <script>try{var t=localStorage.getItem('evolv:theme');if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23000'/%3E%3Ctext x='50' y='67' font-size='54' font-family='Arial' fill='%23fff' text-anchor='middle'%3EE%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,24 +20,34 @@
 <nav id="navbar">
   <div class="nav-inner">
     <a href="index.html" class="nav-logo">Evolv</a>
-    <div class="nav-links">
-      <a href="dashboard.html" class="on">Painel</a>
-      <a href="about.html">Sobre</a>
-    </div>
+    <div class="nav-links"></div>
     <div class="nav-right">
       <button class="theme-btn" data-act="theme" title="Alternar tema">◐</button>
-      <span data-auth="out" style="display:none"><a href="login.html" class="nav-cta">Entrar</a></span>
-      <span data-auth="in" style="display:none;align-items:center;gap:12px">
-        <a href="profile.html" class="nav-avatar" id="navAvatar">?</a>
-        <a href="javascript:void(0)" class="nav-logout" data-act="logout">Sair</a>
-      </span>
     </div>
   </div>
 </nav>
 
-<main class="app-main">
-  <div class="container">
-    <div id="main"></div>
+<main class="auth-shell">
+  <div class="auth-card">
+    <h1>Entrar</h1>
+    <p>Acesse seu painel de estudos.</p>
+
+    <form id="loginForm" class="form-card">
+      <div class="field">
+        <label for="email">E-mail</label>
+        <input id="email" type="email" placeholder="voce@email.com" required>
+      </div>
+      <div class="field">
+        <label for="password">Senha</label>
+        <input id="password" type="password" required>
+      </div>
+      <div class="form-error" id="formError"></div>
+      <div class="form-actions">
+        <button type="submit" class="btn block">Entrar</button>
+      </div>
+    </form>
+
+    <div class="auth-switch">Ainda não tem conta? <a href="signup.html">Criar conta</a></div>
   </div>
 </main>
 
@@ -45,10 +55,7 @@
 <script src="js/core/state.js"></script>
 <script src="js/data/database.js"></script>
 <script src="js/services/auth.js"></script>
-<script src="js/services/services.js"></script>
-<script src="js/services/stats.js"></script>
-<script src="js/ui/charts.js"></script>
 <script src="js/ui/reveal.js"></script>
-<script src="js/pages/dashboard.js"></script>
+<script src="js/pages/login.js"></script>
 </body>
 </html>

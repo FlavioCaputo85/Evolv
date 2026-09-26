@@ -1,15 +1,30 @@
 {
+  "users": [
+    {
+      "id": "example-user-1",
+      "name": "Maria Estudante",
+      "email": "maria@email.com",
+      "passwordHash": "sha256-hex-da-senha",
+      "course": "ADS",
+      "courseLabel": "Análise e Desenvolvimento de Sistemas",
+      "photo": null,
+      "createdAt": 1758700000000
+    }
+  ],
   "subjects": [
-    { "id": "algoritmo", "name": "Algoritmo", "color": "#0071e3", "code": "AL" },
-    { "id": "bd", "name": "Banco de Dados", "color": "#34c759", "code": "BD" },
-    { "id": "ti", "name": "TI", "color": "#ff9500", "code": "TI" },
-    { "id": "arqcomp", "name": "ArqComp", "color": "#af52de", "code": "AC" },
-    { "id": "so", "name": "Intro a SO", "color": "#ff3b30", "code": "SO" }
+    {
+      "id": "example-subject-1",
+      "userId": "example-user-1",
+      "name": "Algoritmo",
+      "color": "#0071e3",
+      "code": "AL",
+      "blurb": ""
+    }
   ],
   "tasks": [
     {
       "id": "example-task-1",
-      "subjectId": "algoritmo",
+      "subjectId": "example-subject-1",
       "title": "Lista de recursividade",
       "due": "2026-10-02",
       "done": false,
@@ -19,11 +34,19 @@
   "logs": [
     {
       "id": "example-log-1",
-      "subjectId": "algoritmo",
+      "subjectId": "example-subject-1",
       "date": "2026-09-24",
       "minutes": 45,
       "content": "Exercícios e revisão",
       "createdAt": 1758700000000
     }
+  ],
+  "courses": [
+    { "code": "ADS", "name": "Análise e Desenvolvimento de Sistemas", "subjects": ["Algoritmo", "Banco de Dados", "TI", "ArqComp", "Intro a SO"] },
+    { "code": "CC", "name": "Ciência da Computação", "subjects": ["Algoritmo", "Estrutura de Dados", "ArqComp", "Banco de Dados", "Intro a SO", "Cálculo"] },
+    { "code": "ES", "name": "Engenharia de Software", "subjects": ["Algoritmo", "Engenharia de Requisitos", "Banco de Dados", "ArqComp", "Intro a SO"] },
+    { "code": "SI", "name": "Sistemas de Informação", "subjects": ["Algoritmo", "Banco de Dados", "TI", "Gestão de Projetos", "Intro a SO"] },
+    { "code": "RC", "name": "Redes de Computadores", "subjects": ["Algoritmo", "Redes de Computadores", "ArqComp", "TI", "Intro a SO"] },
+    { "code": "EC", "name": "Engenharia da Computação", "subjects": ["Algoritmo", "ArqComp", "Circuitos Digitais", "Banco de Dados", "Intro a SO"] }
   ]
 }

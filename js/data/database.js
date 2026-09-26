@@ -16,13 +16,8 @@ const Repo = (t, a = LocalAdapter) => ({
   async all() { return [...a.read(t)]; },
   async create(d) { const x = { id: d.id || uid(), createdAt: Date.now(), ...d }; a.write(t, [...a.read(t), x]); return x; },
   async update(id, p) { a.write(t, a.read(t).map(x => x.id === id ? { ...x, ...p } : x)); },
-  async remove(id) { a.write(t, a.read(t).filter(x => x.id !== id)); }
+  async remove(id) { a.write(t, a.read(t).filter(x => x.id !== id)); },
+  async removeWhere(f) { a.write(t, a.read(t).filter(x => !f(x))); }
 });
 
-const repos = { subjects: Repo('subjects'), tasks: Repo('tasks'), logs: Repo('logs') };
-
-async function ensureSubjects() {
-  const existing = await repos.subjects.all();
-  const have = new Set(existing.map(s => s.id));
-  for (const def of SUBJECTS) if (!have.has(def.id)) await repos.subjects.create({ ...def });
-}
+const repos = { users: Repo('users'), subjects: Repo('subjects'), tasks: Repo('tasks'), logs: Repo('logs') };

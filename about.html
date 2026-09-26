@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Painel — Evolv</title>
+<title>Sobre — Evolv</title>
 <script>try{var t=localStorage.getItem('evolv:theme');if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23000'/%3E%3Ctext x='50' y='67' font-size='54' font-family='Arial' fill='%23fff' text-anchor='middle'%3EE%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -21,7 +21,7 @@
   <div class="nav-inner">
     <a href="index.html" class="nav-logo">Evolv</a>
     <div class="nav-links">
-      <a href="dashboard.html" class="on">Painel</a>
+      <a href="dashboard.html">Painel</a>
       <a href="about.html">Sobre</a>
     </div>
     <div class="nav-right">
@@ -35,20 +35,38 @@
   </div>
 </nav>
 
-<main class="app-main">
-  <div class="container">
-    <div id="main"></div>
-  </div>
+<main>
+  <section class="about-hero">
+    <div class="container reveal">
+      <div class="eyebrow">Sobre o Evolv</div>
+      <h1>Um painel de estudos feito para evoluir junto com quem estuda</h1>
+      <p>A história por trás do projeto, e por que ele existe.</p>
+    </div>
+  </section>
+
+  <section class="section tight">
+    <div class="container about-body reveal">
+      <p>O Evolv nasceu de um problema simples: quem estuda mais de uma disciplina ao mesmo tempo raramente tem um lugar só para acompanhar tudo — tarefas espalhadas em cadernos, horas de estudo que ninguém soma, e nenhuma visão real de quanto progresso está sendo feito em cada matéria.</p>
+      <p>O projeto também foi construído como um exercício deliberado de uso de inteligência artificial: da identidade visual à arquitetura do código, cada parte do Evolv foi desenhada em parceria com um modelo de linguagem, testando até onde a IA consegue ir na criação de um produto completo — do design de interface ao banco de dados — mantendo organização e qualidade de código profissional.</p>
+      <p>O Evolv deve ser usado por quem quer transformar rotina de estudo em dados reais: criar suas matérias (ou deixar o sistema sugerir as do seu curso), registrar tarefas com prazo, anotar sessões de estudo, e acompanhar tudo isso evoluindo em gráficos — sem depender de planilhas soltas ou da memória.</p>
+    </div>
+  </section>
+
+  <section class="section tight">
+    <div class="container reveal">
+      <div class="credit-card">
+        <div class="name">Flávio Sandri Caputo</div>
+        <div class="role">Creator</div>
+      </div>
+    </div>
+  </section>
 </main>
 
 <script src="js/core/utils.js"></script>
 <script src="js/core/state.js"></script>
 <script src="js/data/database.js"></script>
 <script src="js/services/auth.js"></script>
-<script src="js/services/services.js"></script>
-<script src="js/services/stats.js"></script>
-<script src="js/ui/charts.js"></script>
 <script src="js/ui/reveal.js"></script>
-<script src="js/pages/dashboard.js"></script>
+<script src="js/pages/about.js"></script>
 </body>
 </html>

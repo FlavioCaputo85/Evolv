@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Criar conta — Evolv</title>
+<script>try{var t=localStorage.getItem('evolv:theme');if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23000'/%3E%3Ctext x='50' y='67' font-size='54' font-family='Arial' fill='%23fff' text-anchor='middle'%3EE%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/theme.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/nav.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/animations.css">
+</head>
+<body>
+
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Evolv</a>
+    <div class="nav-links"></div>
+    <div class="nav-right">
+      <button class="theme-btn" data-act="theme" title="Alternar tema">◐</button>
+    </div>
+  </div>
+</nav>
+
+<main class="auth-shell">
+  <div class="auth-card">
+    <h1>Criar conta</h1>
+    <p>Comece a acompanhar seus estudos em poucos segundos.</p>
+
+    <form id="signupForm" class="form-card">
+      <div class="avatar-upload">
+        <div class="avatar-preview" id="photoPreview">?</div>
+        <label class="btn ghost upload-btn">Escolher foto
+          <input type="file" id="photo" accept="image/*">
+        </label>
+      </div>
+
+      <div class="field">
+        <label for="name">Nome</label>
+        <input id="name" placeholder="Seu nome" required>
+      </div>
+      <div class="field">
+        <label for="email">E-mail</label>
+        <input id="email" type="email" placeholder="voce@email.com" required>
+      </div>
+      <div class="field">
+        <label for="password">Senha</label>
+        <input id="password" type="password" placeholder="Mínimo 6 caracteres" required>
+      </div>
+      <div class="field">
+        <label for="confirm">Confirmar senha</label>
+        <input id="confirm" type="password" required>
+      </div>
+
+      <div class="field autocomplete">
+        <label for="course">Curso (opcional)</label>
+        <input id="course" placeholder="Ex: ADS, Ciência da Computação..." autocomplete="off">
+        <input type="hidden" id="courseCode">
+        <div class="suggest-list" id="courseSuggestions"></div>
+        <div class="field-hint">Digite a sigla ou o nome do curso e escolha uma sugestão.</div>
+      </div>
+      <label class="checkbox-row">
+        <input type="checkbox" id="autoCreate">
+        Criar automaticamente as matérias mais comuns do curso escolhido
+      </label>
+
+      <div class="form-error" id="formError"></div>
+      <div class="form-actions">
+        <button type="submit" class="btn block">Criar conta</button>
+      </div>
+    </form>
+
+    <div class="auth-switch">Já tem conta? <a href="login.html">Entrar</a></div>
+  </div>
+</main>
+
+<script src="js/core/utils.js"></script>
+<script src="js/core/state.js"></script>
+<script src="js/data/database.js"></script>
+<script src="js/services/auth.js"></script>
+<script src="js/services/services.js"></script>
+<script src="js/ui/reveal.js"></script>
+<script src="js/ui/autocomplete.js"></script>
+<script src="js/pages/signup.js"></script>
+</body>
+</html>

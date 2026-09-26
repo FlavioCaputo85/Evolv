@@ -1,5 +1,7 @@
 # Evolv — Estudos
 
+link: https://evolv-xi.vercel.app/index.html
+
 Evolv é um painel pessoal de estudos com conta obrigatória: cada pessoa cria as suas próprias matérias (ou deixa o sistema sugerir as do seu curso), registra tarefas com prazo e sessões de estudo, e acompanha tudo isso evoluindo em gráficos reais — sem depender de planilhas soltas.
 
 Este projeto também é um exercício deliberado de uso de IA: da identidade visual à arquitetura de dados, cada parte foi construída em parceria com um modelo de linguagem (Claude, da Anthropic), testando até onde a IA consegue ir na criação de um produto completo — autenticação, banco de dados, design — mantendo organização e qualidade de código profissional.

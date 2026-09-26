@@ -1,0 +1,29 @@
+{
+  "subjects": [
+    { "id": "algoritmo", "name": "Algoritmo", "color": "#0071e3", "code": "AL" },
+    { "id": "bd", "name": "Banco de Dados", "color": "#34c759", "code": "BD" },
+    { "id": "ti", "name": "TI", "color": "#ff9500", "code": "TI" },
+    { "id": "arqcomp", "name": "ArqComp", "color": "#af52de", "code": "AC" },
+    { "id": "so", "name": "Intro a SO", "color": "#ff3b30", "code": "SO" }
+  ],
+  "tasks": [
+    {
+      "id": "example-task-1",
+      "subjectId": "algoritmo",
+      "title": "Lista de recursividade",
+      "due": "2026-10-02",
+      "done": false,
+      "createdAt": 1758700000000
+    }
+  ],
+  "logs": [
+    {
+      "id": "example-log-1",
+      "subjectId": "algoritmo",
+      "date": "2026-09-24",
+      "minutes": 45,
+      "content": "Exercícios e revisão",
+      "createdAt": 1758700000000
+    }
+  ]
+}

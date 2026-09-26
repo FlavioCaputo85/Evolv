@@ -4,26 +4,138 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Evolv — Estudos</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E📚%3C/text%3E%3C/svg%3E">
+<meta name="description" content="Evolv é o painel pessoal para acompanhar Algoritmo, Banco de Dados, TI, Arquitetura de Computadores e Introdução a Sistemas Operacionais — com dados reais.">
+<script>try{var t=localStorage.getItem('evolv:theme');if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23000'/%3E%3Ctext x='50' y='67' font-size='54' font-family='Arial' fill='%23fff' text-anchor='middle'%3EE%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/theme.css">
 <link rel="stylesheet" href="css/base.css">
-<link rel="stylesheet" href="css/layout.css">
+<link rel="stylesheet" href="css/nav.css">
+<link rel="stylesheet" href="css/marketing.css">
 <link rel="stylesheet" href="css/components.css">
 <link rel="stylesheet" href="css/animations.css">
 </head>
 <body>
-<aside id="side"></aside>
-<main id="main"></main>
-<div id="modal"></div>
+
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Evolv</a>
+    <div class="nav-links">
+      <a href="#features">Recursos</a>
+      <a href="#subjects">Disciplinas</a>
+      <a href="#how">Como funciona</a>
+    </div>
+    <div class="nav-right">
+      <button class="theme-btn" data-act="theme" title="Alternar tema">◐</button>
+      <a href="dashboard.html" class="nav-cta">Abrir painel</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="container">
+    <h1>Evolv</h1>
+    <p class="sub">Estudos</p>
+    <p class="lead">O painel pessoal para acompanhar Algoritmo, Banco de Dados, TI, Arquitetura de Computadores e Introdução a Sistemas Operacionais — com dados reais das suas tarefas e sessões de estudo.</p>
+    <div class="hero-cta">
+      <a href="dashboard.html" class="pill primary">Abrir meu painel</a>
+      <a href="#features" class="pill secondary">Ver recursos</a>
+    </div>
+
+    <div class="mock reveal scale">
+      <div class="mock-bar"><i></i><i></i><i></i></div>
+      <div class="mock-body">
+        <div class="mock-side"><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="mock-main">
+          <div class="mock-kpis"><i></i><i></i><i></i></div>
+          <div class="mock-chart">
+            <svg viewBox="0 0 400 120" preserveAspectRatio="none">
+              <polyline points="0,90 40,80 80,86 120,60 160,66 200,40 240,48 280,26 320,32 360,14 400,20" fill="none" stroke="#0071e3" stroke-width="2.5"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="section stat-band">
+  <div class="container reveal">
+    <div class="stat-row">
+      <div class="stat"><b data-count="0">0</b><span>Horas estudadas</span></div>
+      <div class="stat"><b data-count="0">0</b><span>Tarefas concluídas</span></div>
+      <div class="stat"><b data-count="0">0</b><span>Disciplinas ativas</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="features">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">Por que Evolv</div>
+      <h2>Feito para acompanhar sua rotina de verdade</h2>
+      <p>Sem planilhas soltas, sem métricas inventadas. Cada gráfico nasce das tarefas que você concluiu e das horas que você realmente estudou.</p>
+    </div>
+    <div class="feat-grid reveal">
+      <div class="feat"><div class="n">01</div><h3>Painel com dados reais</h3><p>Gráficos de evolução calculados a partir das suas tarefas e registros — nunca números fictícios.</p></div>
+      <div class="feat"><div class="n">02</div><h3>Identidade por disciplina</h3><p>Cada matéria tem sua cor, mantida no menu, nos cards e nos gráficos.</p></div>
+      <div class="feat"><div class="n">03</div><h3>Tarefas com prazo</h3><p>Crie, conclua e filtre por pendentes, concluídas ou atrasadas.</p></div>
+      <div class="feat"><div class="n">04</div><h3>Modo claro e escuro</h3><p>Interface fluida, com transições suaves em cada interação.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="subj-band" id="subjects">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">Disciplinas</div>
+      <h2>Focado no que importa no seu semestre</h2>
+      <p>Cinco disciplinas, cada uma com identidade própria e evolução acompanhada em tempo real.</p>
+    </div>
+    <div class="subj-grid stagger">
+      <a class="subj-tile" href="subject.html?s=algoritmo"><div class="badge" style="background:#0071e3">AL</div><h3>Algoritmo</h3><p>Lógica, estruturas de dados e resolução de problemas.</p></a>
+      <a class="subj-tile" href="subject.html?s=bd"><div class="badge" style="background:#34c759">BD</div><h3>Banco de Dados</h3><p>Modelagem, SQL e consultas eficientes.</p></a>
+      <a class="subj-tile" href="subject.html?s=ti"><div class="badge" style="background:#ff9500">TI</div><h3>TI</h3><p>Fundamentos e prática de Tecnologia da Informação.</p></a>
+      <a class="subj-tile" href="subject.html?s=arqcomp"><div class="badge" style="background:#af52de">AC</div><h3>ArqComp</h3><p>Arquitetura de computadores e organização de hardware.</p></a>
+      <a class="subj-tile" href="subject.html?s=so"><div class="badge" style="background:#ff3b30">SO</div><h3>Intro a SO</h3><p>Processos, memória e sistemas operacionais.</p></a>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="how">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">Como funciona</div>
+      <h2>Três passos, evolução contínua</h2>
+    </div>
+    <div class="steps stagger">
+      <div class="step"><div class="n"></div><h3>Registre suas sessões</h3><p>Anote data, duração e o que estudou em cada disciplina.</p></div>
+      <div class="step"><div class="n"></div><h3>Organize suas tarefas</h3><p>Crie prazos e acompanhe o que falta em cada matéria.</p></div>
+      <div class="step"><div class="n"></div><h3>Acompanhe sua evolução</h3><p>O painel se atualiza sozinho, com base no que você já fez.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-band">
+  <div class="container reveal">
+    <h2>Comece a acompanhar sua evolução</h2>
+    <p>Seus dados ficam no seu navegador, prontos para crescer.</p>
+    <a href="dashboard.html" class="pill primary">Abrir meu painel</a>
+  </div>
+</section>
+
+<footer>
+  <p><b>Evolv</b> — Estudos. Um projeto pessoal construído com apoio de IA. Veja o <a href="README.md">README</a>.</p>
+</footer>
+
 <script src="js/core/utils.js"></script>
 <script src="js/core/state.js"></script>
 <script src="js/data/database.js"></script>
 <script src="js/services/services.js"></script>
 <script src="js/services/stats.js"></script>
-<script src="js/services/seed.js"></script>
-<script src="js/ui/charts.js"></script>
-<script src="js/ui/views.js"></script>
-<script src="js/ui/events.js"></script>
-<script src="js/app.js"></script>
+<script src="js/ui/reveal.js"></script>
+<script src="js/pages/marketing.js"></script>
 </body>
 </html>

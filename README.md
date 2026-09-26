@@ -1,121 +1,77 @@
-# 📚 Evolv
+# Evolv — Estudos
 
-**A personal study tracker, built for people who actually want to see their progress.**
+Evolv é um painel pessoal para acompanhar rotina de estudo em cinco disciplinas fixas: **Algoritmo, Banco de Dados, TI, ArqComp e Intro a SO**. O objetivo é simples: registrar tarefas com prazo e sessões de estudo, e deixar que o próprio sistema mostre a evolução real, sem números inventados.
 
-Evolv blends the flexibility of Notion with the simplicity of ChatGPT into a focused, single-purpose tool: track what you're studying, log your hours, and watch a real, data-driven dashboard show you how far you've come — subject by subject.
+Este projeto também nasceu como um exercício de uso intensivo de IA: da definição da identidade visual ao código de cada camada, a construção foi conduzida em parceria com um modelo de linguagem (Claude, da Anthropic), com o objetivo declarado de explorar até onde a IA consegue ir na criação de um produto web completo — do design de interface à arquitetura de dados — mantendo qualidade de código e organização profissional.
 
-No mock numbers. No vanity metrics. Every chart on the dashboard is calculated live from the tasks you complete and the study sessions you log.
+## Como o site funciona
 
----
+O Evolv é um site estático de múltiplas páginas (sem back-end e sem build). Cada página HTML carrega os mesmos scripts de base e, em seguida, um script específico daquela página:
 
-## ✨ Features
+- **`index.html`** — página inicial, estilo produto: apresenta o Evolv, mostra números reais (horas estudadas, tarefas concluídas) e leva à disciplina ou ao painel.
+- **`dashboard.html`** — visão geral: KPIs, gráfico de evolução acumulada, gráfico de horas por dia e a lista das 5 disciplinas com progresso.
+- **`subject.html?s=<id>`** — página de uma disciplina: KPIs próprios, gráfico de horas, lista de tarefas (com filtros) e lista de registros de estudo.
+- **`add-task.html?s=<id>`** — página própria para adicionar uma tarefa a uma disciplina.
+- **`add-log.html?s=<id>`** — página própria para registrar uma sessão de estudo.
 
-- **📊 Real-data dashboard** — cumulative progress and daily-hours charts, generated straight from your tasks and study logs.
-- **🎨 Subject identity** — every subject gets its own color, kept consistent across the sidebar, cards, and charts, so you always know what you're looking at.
-- **✅ Tasks with deadlines** — create, complete, and filter tasks by *All / Pending / Done / Overdue*.
-- **📝 Study logs** — record date, duration, and what you studied; each entry feeds the analytics automatically.
-- **🌗 Dark & light mode** — respects your system preference, with a manual toggle.
-- **💫 Smooth, purposeful animations** — nothing flashy, just a fluid, intuitive feel.
-- **📱 Fully responsive** — works from a wide desktop dashboard down to a phone screen.
-- **⚡ Zero build step** — plain HTML/CSS/JS. Open `index.html` and it just works.
+Os dados ficam salvos no `localStorage` do navegador. Ao concluir uma tarefa ou registrar uma sessão, os gráficos e KPIs de todas as páginas passam a refletir esse novo dado automaticamente — nada é calculado a partir de valores fixos.
 
----
+## Identidade visual
 
-## 🖥️ Tech Stack
+O visual segue uma linguagem inspirada em páginas de produto da Apple: tipografia grande e legível (system-ui / -apple-system, com Inter como alternativa), paleta neutra em preto, branco e cinza, um único azul de destaque para ações, e seções alternando fundo claro e escuro. Cada disciplina tem uma cor própria, usada de forma consistente no menu, nos cards e nos gráficos. O modo claro e escuro é automático (segue o sistema) e pode ser alternado manualmente. As animações de rolagem usam `IntersectionObserver` para revelar seções suavemente conforme a página é percorrida, e os números do topo da página inicial sobem de forma animada até o valor real.
 
-| Layer | Technology |
-|---|---|
-| Structure | Semantic HTML5 |
-| Styling | Modular CSS (custom properties for theming) |
-| Logic | Vanilla JavaScript (no framework) |
-| Charts | Hand-rolled SVG — no charting library, no dependencies |
-| Data | LocalStorage today, swappable for a real database tomorrow |
-| Deploy target | [Vercel](https://vercel.com) (static, no build step required) |
-
----
-
-## 🏗️ Architecture
-
-Evolv is organized in clear layers so it can grow without turning into a mess:
+## Estrutura de arquivos
 
 ```
-index.html
+index.html          página inicial (produto)
+dashboard.html        painel com gráficos
+subject.html            página de uma disciplina
+add-task.html             adicionar tarefa
+add-log.html               adicionar registro de estudo
+
+data/
+  seed.json          formato de dados que uma futura API deve seguir
+
 css/
-  theme.css         → color tokens, light/dark mode
-  base.css           → resets, typography, inputs
-  layout.css          → sidebar, main content, structure
-  components.css      → cards, buttons, charts, modals
-  animations.css       → transitions and motion
+  theme.css          cores e modo claro/escuro
+  base.css            tipografia, reset, botões e inputs
+  nav.css              barra de navegação fixa
+  marketing.css          seções da página inicial
+  components.css           cards, gráficos, listas, formulários
+  animations.css             revelação ao rolar a página
+
 js/
   core/
-    utils.js          → date helpers, formatting
-    state.js           → app state, color palette
+    utils.js         datas, formatação, helpers de DOM
+    state.js           as 5 disciplinas fixas e o estado da página
   data/
-    database.js        → Adapter + Repository pattern (persistence layer)
+    database.js       camada de persistência (adapter + repository)
   services/
-    services.js        → business logic & validation
-    stats.js            → pure calculations that power the charts
-    seed.js              → first-run sample data
+    services.js       regras de negócio de tarefas e registros
+    stats.js            cálculos que alimentam os gráficos, mais o seed de exemplo
   ui/
-    charts.js          → SVG chart rendering
-    views.js             → screen/view rendering
-    events.js             → user interactions & event handling
-  app.js               → app bootstrap
+    charts.js         gráficos SVG (linha e barras), sem bibliotecas externas
+    reveal.js           navegação, tema e animações de rolagem, comuns a todas as páginas
+  pages/
+    marketing.js       lógica exclusiva de index.html
+    dashboard.js         lógica exclusiva de dashboard.html
+    subject.js             lógica exclusiva de subject.html
+    add-task.js               lógica exclusiva de add-task.html
+    add-log.js                  lógica exclusiva de add-log.html
 ```
 
-**The key idea:** the `data/` layer is the only place that knows *how* data is stored. Everything else (`services`, `stats`, `ui`) talks to it through a small, stable interface — `all()`, `create()`, `update()`, `remove()`. That means swapping the storage engine never touches business logic or UI code.
+A camada `data/database.js` é a única parte do código que sabe *onde* os dados moram. Hoje é o `localStorage`; para evoluir para um banco de dados real, basta criar um adaptador que faça `fetch('/api/subjects')`, `fetch('/api/tasks')` e `fetch('/api/logs')` devolvendo exatamente o formato descrito em `data/seed.json`, mantendo os mesmos métodos (`all`, `create`, `update`, `remove`) usados pelas camadas acima — nenhuma página ou serviço precisa mudar.
 
----
+## Rodando o projeto
 
-## 🚀 Getting Started
+Não há dependências nem build. Basta abrir `index.html` no navegador, ou publicar a pasta inteira em qualquer hospedagem estática, como a Vercel:
 
-No install, no build, no dependencies.
-
-```bash
-git clone https://github.com/your-username/evolv.git
-cd evolv
-open index.html   # or just double-click it
 ```
-
-That's it. Evolv seeds a few sample subjects on first run so the dashboard isn't empty — feel free to delete them and start fresh.
-
----
-
-## ☁️ Deploying to Vercel
-
-Evolv is a static site, so deployment is a one-liner:
-
-```bash
 npx vercel
 ```
 
-Or connect the repo directly in the [Vercel dashboard](https://vercel.com/new) — no build command needed.
+## Próximos passos possíveis
 
----
-
-## 🔭 Roadmap / Built to Grow
-
-Evolv's architecture was designed with the following evolution in mind:
-
-- [ ] **Real database** — swap `LocalAdapter` in `data/database.js` for an adapter that calls `/api/*` routes (Vercel Functions + Postgres/Supabase), keeping the same repository interface.
-- [ ] **Authentication** — add `userId` scoping in `services/services.js` for multi-user support.
-- [ ] **Sync across devices** — once persisted server-side, data follows you anywhere.
-- [ ] **Study streaks & reminders**
-- [ ] **Export / import data**
-- [ ] **AI-assisted study suggestions** (leaning into the ChatGPT-inspired part of the vision)
-
----
-
-## 🤝 Contributing
-
-This is a personal project, but issues, ideas, and pull requests are always welcome. If you spot a bug or have a feature in mind, feel free to open an issue.
-
----
-
-## 📄 License
-
-MIT — do whatever you'd like with it.
-
----
-
-<p align="center">Built with focus, for focus. — <b>Evolv</b></p>
+- Substituir `LocalAdapter` por uma API real (Vercel Functions + Postgres/Supabase), seguindo o contrato de `data/seed.json`.
+- Autenticação, para múltiplos usuários com dados próprios.
+- Notificações de prazos e sequência de dias estudados.
